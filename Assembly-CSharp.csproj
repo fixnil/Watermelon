@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Fruit.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

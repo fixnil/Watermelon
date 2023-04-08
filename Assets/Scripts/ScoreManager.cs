@@ -14,7 +14,7 @@ public class ScoreManager : MonoBehaviour
         set
         {
             _score = value;
-            _scoreText.text = value.ToString();
+            _scoreText.text = value.ToString().PadLeft(3, '0');
         }
     }
 

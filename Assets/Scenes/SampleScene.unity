@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eecc3715947f784eaca3d53ade8dbed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MergeClip: {fileID: 8300000, guid: 31a81885beb86c94f8c30d86e81f81b6, type: 3}
+  CollideClip: {fileID: 8300000, guid: 15fe4b0ae32335f418d20f7c66eae2a2, type: 3}
 --- !u!1 &464533810
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,8 +421,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -442.1, y: 1198.7}
-  m_SizeDelta: {x: 179.0081, y: 63.7589}
+  m_AnchoredPosition: {x: -422.1886, y: 1198.7}
+  m_SizeDelta: {x: 198.9194, y: 63.7589}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &843863797
 MonoBehaviour:
@@ -455,7 +457,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 000
 --- !u!222 &843863798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1098,7 +1100,7 @@ GameObject:
   - component: {fileID: 2146726635}
   m_Layer: 0
   m_Name: Bottom
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
