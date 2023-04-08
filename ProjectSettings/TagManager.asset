@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fruit
   - Floor
+  - DeathLine
   layers:
   - Default
   - TransparentFX

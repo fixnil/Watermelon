@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Fruit : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Fruit : MonoBehaviour
 
     private long _createTime;
     private bool _isFirstCollide = true;
+    private bool _isFirstTrigger = true;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -53,7 +55,19 @@ public class Fruit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        var top = collision.gameObject;
 
+        if (top.CompareTag(Constants.DeathLine))
+        {
+            if (_isFirstTrigger)
+            {
+                _isFirstTrigger = false;
+            }
+            else
+            {
+                SceneManager.LoadScene("SampleScene");
+            }
+        }
     }
 
     private void Start()
