@@ -65,7 +65,7 @@ public class Fruit : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene(Constants.SampleScene);
             }
         }
     }

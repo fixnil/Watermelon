@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MergeClip: {fileID: 8300000, guid: 31a81885beb86c94f8c30d86e81f81b6, type: 3}
   CollideClip: {fileID: 8300000, guid: 15fe4b0ae32335f418d20f7c66eae2a2, type: 3}
+  AudioSource: {fileID: 423900311}
 --- !u!1 &464533810
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b75da82e88710049bb0108f4441584a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScoreText: {fileID: 843863797}
 --- !u!1 &1126786475
 GameObject:
   m_ObjectHideFlags: 0
