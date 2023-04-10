@@ -5,16 +5,24 @@ public class Player : MonoBehaviour
     public static Player Instance;
     public GameObject[] FruitPrefabs;
 
-    public Transform InitLocation;
+    public Transform InitPostion;
     public GameObject ReadyFruit;
 
-    private void Awake()
+    public GameObject New(int index, Vector3 position)
     {
-        Instance = this;
+        var prefab = FruitPrefabs[index];
+
+        var fruit = Instantiate(prefab);
+
+        fruit.transform.position = position;
+
+        return fruit;
     }
 
     private void Start()
     {
+        Instance = this;
+
         this.CreateFruit();
     }
 
@@ -29,28 +37,34 @@ public class Player : MonoBehaviour
         {
             var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            if (ReadyFruit.TryGetComponent<CircleCollider2D>(out var collider))
+            {
+                var minX = -3.2 + collider.radius;
+                var maxX = 3.2 - collider.radius;
+
+                if (mousePosition.x < minX)
+                {
+                    mousePosition.x = (float)minX;
+                }
+
+                if (mousePosition.x > maxX)
+                {
+                    mousePosition.x = (float)maxX;
+                }
+            }
+
             mousePosition.y = ReadyFruit.transform.position.y;
             mousePosition.z = ReadyFruit.transform.position.z;
-
-            var radius = ReadyFruit.GetComponent<CircleCollider2D>().radius;
-            var minX = -3.2 + radius;
-            var maxX = 3.2 - radius;
-
-            if (mousePosition.x < minX)
-            {
-                mousePosition.x = (float)minX;
-            }
-            else if (mousePosition.x > maxX)
-            {
-                mousePosition.x = (float)maxX;
-            }
 
             ReadyFruit.transform.position = mousePosition;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            ReadyFruit.GetComponent<Rigidbody2D>().gravityScale = 1;
+            if (ReadyFruit.TryGetComponent<Rigidbody2D>(out var rigidbody))
+            {
+                rigidbody.gravityScale = 1;
+            }
 
             ReadyFruit = null;
 
@@ -62,10 +76,11 @@ public class Player : MonoBehaviour
     {
         var index = Random.Range(0, 4);
 
-        ReadyFruit = Instantiate(FruitPrefabs[index]);
+        ReadyFruit = this.New(index, InitPostion.position);
 
-        ReadyFruit.transform.position = InitLocation.position;
-
-        ReadyFruit.GetComponent<Rigidbody2D>().gravityScale = 0;
+        if (ReadyFruit.TryGetComponent<Rigidbody2D>(out var rigidbody))
+        {
+            rigidbody.gravityScale = 0;
+        }
     }
 }

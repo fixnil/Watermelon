@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
         set
         {
             _score = value;
+
             ScoreText.text = value.ToString().PadLeft(3, '0');
         }
     }

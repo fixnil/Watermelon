@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,39 +5,43 @@ public class Fruit : MonoBehaviour
 {
     public int Level;
 
-    private long _createTime;
+    private int _index;
+    private static int _total;
+
     private bool _isFirstCollide = true;
     private bool _isFirstTrigger = true;
+
+    private void Start()
+    {
+        _index = _total++;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var other = collision.gameObject;
 
-        if (other.CompareTag(Constants.Fruit) &&
-            Player.Instance.ReadyFruit != this.gameObject)
+        if (other.TryGetComponent<Fruit>(out var otherFruit))
         {
-            var otherFruit = other.GetComponent<Fruit>();
-
-            if (otherFruit.Level == Level && _createTime > otherFruit._createTime)
+            if (this.gameObject != Player.Instance.ReadyFruit && _index > otherFruit._index)
             {
-                var prefab = Player.Instance.FruitPrefabs[Level];
-                var fruit = Instantiate(prefab);
-
-                fruit.transform.position = this.transform.position;
-
-                AudioManager.Instance.PlayMergeClip();
-                ScoreManager.Instance.Score += Level * 2;
-
-                Destroy(other);
-                Destroy(this.gameObject);
-            }
-            else if (_createTime > otherFruit._createTime)
-            {
-                if (_isFirstCollide)
+                if (Level != 11 && Level == otherFruit.Level)
                 {
-                    _isFirstCollide = false;
+                    Player.Instance.New(Level, this.transform.position);
 
-                    AudioManager.Instance.PlayCollideClip();
+                    AudioManager.Instance.PlayMergeClip();
+                    ScoreManager.Instance.Score += Level * 2;
+
+                    Destroy(other);
+                    Destroy(this.gameObject);
+                }
+                else
+                {
+                    if (_isFirstCollide)
+                    {
+                        _isFirstCollide = false;
+
+                        AudioManager.Instance.PlayCollideClip();
+                    }
                 }
             }
         }
@@ -55,9 +58,7 @@ public class Fruit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var top = collision.gameObject;
-
-        if (top.CompareTag(Constants.DeathLine))
+        if (collision.CompareTag(Constants.DeathLine))
         {
             if (_isFirstTrigger)
             {
@@ -65,13 +66,13 @@ public class Fruit : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene(Constants.SampleScene);
+                this.GameOver();
             }
         }
     }
 
-    private void Start()
+    private void GameOver()
     {
-        _createTime = DateTime.Now.Ticks;
+        SceneManager.LoadScene(Constants.SampleScene);
     }
 }
